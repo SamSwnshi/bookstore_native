@@ -6,12 +6,47 @@ const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "15d" });
 };
 export const login = async (req, res) => {
+  const {email,password,username} = req.body;
   try {
-  } catch (error) {}
+    if (!email || !password || !username) {
+      return res.status(400).json({ message: "All Fields Required!" });
+    }
+
+    const user = await User.findOne({$or: [{email: email}]})
+    if(!user){
+       return res.status(401).json({
+        message: "User Not Found!",
+      });
+    }
+
+    const validatePassword = await bcrypt.compare(password,user.password);
+    if(!validatePassword){
+       return res.status(401).json({
+        message: "Invalid Credentials!",
+      });
+    }
+
+    const token = generateToken(user._id);
+    
+    res.status(200).json({
+      user: {
+        id: user._id,
+        email: user.email
+      },
+      token,
+      message : "Login Successfully"
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
 };
 export const signup = async (req, res) => {
+  const { email, password, username } = req.body;
   try {
-    const { email, password, username } = req.body;
     if (!email || !password || !username) {
       return res.status(400).json({ message: "All Fields Required!" });
     }
