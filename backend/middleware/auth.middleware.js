@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 
-const response = await fetch(`http://localhost:8080/api/book/create`,{
-    method: "POST",
-    body: JSON.stringify({
-        title,
-        caption
-    }), 
-    headers: {Authorization: `Bearer ${token}`}
-})
+// const response = await fetch(`http://localhost:8080/api/book/create`,{
+//     method: "POST",
+//     body: JSON.stringify({
+//         title,
+//         caption
+//     }), 
+//     headers: {Authorization: `Bearer ${token}`}
+// })
 
 const protectRoute = async(req, res,next) =>{
     try {
