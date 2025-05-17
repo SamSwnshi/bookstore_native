@@ -20,7 +20,11 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    fetch("http://localhost:8080/api/auth/login",{
+      
+    })
+  };
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}

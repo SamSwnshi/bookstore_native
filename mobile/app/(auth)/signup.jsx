@@ -10,15 +10,22 @@ import {
 import styles from "../../assets/styles/signup.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
-import { use, useState } from "react";
-import { Link, router } from "expo-router";
+import {  useState } from "react";
+import {  router, } from "expo-router";
+import { useRoute } from "@react-navigation/native";
+import { useAuthStore } from "../../store/authStore";
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const handleSignup = () => {};
+ 
+
+  const {isLoading,register} = useAuthStore()
+  const router = useRoute()
+  const handleSignup = () => {
+   
+  };
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
