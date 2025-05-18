@@ -6,12 +6,13 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import styles from "../../assets/styles/signup.styles";
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../../constants/colors";
-import {  useState } from "react";
-import {  router, } from "expo-router";
+import { useState } from "react";
+import { router } from "expo-router";
 import { useRoute } from "@react-navigation/native";
 import { useAuthStore } from "../../store/authStore";
 const Signup = () => {
@@ -19,12 +20,14 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
- 
 
-  const {isLoading,register} = useAuthStore()
-  const router = useRoute()
-  const handleSignup = () => {
-   
+  const { isLoading, register } = useAuthStore();
+  const router = useRoute();
+  const handleSignup = async() => {
+    const result =  await register(username,email,password)
+    if(!result.success) {
+      Alert.alert("Error",result.error)
+    }
   };
   return (
     <KeyboardAvoidingView
