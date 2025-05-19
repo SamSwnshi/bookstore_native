@@ -21,7 +21,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { isLoading, register } = useAuthStore();
+  const { user,isLoading, register ,token} = useAuthStore();
   const router = useRoute();
   const handleSignup = async() => {
     const result =  await register(username,email,password)
@@ -29,6 +29,9 @@ const Signup = () => {
       Alert.alert("Error",result.error)
     }
   };
+
+  console.log(user)
+  console.log(token)
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
