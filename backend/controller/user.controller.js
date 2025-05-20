@@ -6,9 +6,9 @@ const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "15d" });
 };
 export const login = async (req, res) => {
-  const {email,password,username} = req.body;
+  const {email,password} = req.body;
   try {
-    if (!email || !password || !username) {
+    if (!email || !password ) {
       return res.status(400).json({ message: "All Fields Required!" });
     }
 
@@ -31,6 +31,7 @@ export const login = async (req, res) => {
     res.status(200).json({
       user: {
         id: user._id,
+        username: user.username,
         email: user.email,
         profileImage: user.profileImage
       },
